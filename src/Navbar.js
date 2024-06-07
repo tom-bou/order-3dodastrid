@@ -3,7 +3,7 @@ import { ReactComponent as Logo } from './assets/Astrid_logga_white.svg'; // Ens
 
 function Navbar() {
   return (
-    <nav className="bg-transparent p-4 fixed top-0 w-full z-10 flex justify-center">
+    <nav className="bg-transparent p-4 absolute top-0 w-full z-10 flex justify-center">
       <Logo className="h-16" />
     </nav>
   );

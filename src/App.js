@@ -1,11 +1,11 @@
 import React from 'react';
-
 import { useMediaQuery } from 'react-responsive';
 import Form from './Form';
 import Navbar from './Navbar';
 import { ReactComponent as Logo } from './assets/Astrid_logga_white.svg'; // Ensure the path is correct
 
 function App() {
+
   const isMediumOrLarger = useMediaQuery({ query: '(min-width: 768px)' });
   const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
@@ -21,14 +21,13 @@ function App() {
             muted
             poster="https://api.astrid.se/wp-content/uploads/2023/01/Stillbild_film.jpg"
           />
-          <div className="relative z-10 w-full max-w-md p-4 bg-white bg-opacity-90 rounded-lg shadow-lg mx-4 mt-12">
+          <div className="relative z-10 w-full max-w-md p-4 bg-white bg-opacity-90 rounded-lg shadow-lg mx-4 mt-12 form-container">
             {isSmallScreen && (
               <div className="absolute top-0 left-0 right-0 flex justify-center mt-[-3rem]">
                 <Logo className="h-12" />
               </div>
             )}
-              <Form />
-
+              <Form/>
           </div>
         </div>
       </div>
