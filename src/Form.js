@@ -140,7 +140,6 @@ function Form() {
     e.preventDefault();
     try {
       const dataToSubmit = { ...formData};
-      console.log(process.env.REACT_APP_EMAIL_JS_SERVICE_ID, process.env.REACT_APP_EMAIL_JS_TEMPLATE_ID)
       await emailjs.send(
         process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
         process.env.REACT_APP_EMAIL_JS_TEMPLATE_ID,
@@ -149,7 +148,6 @@ function Form() {
       );
 
       const docRef = await addDoc(collection(db, "Orders"), formData);
-      console.log("Document written with ID: ", docRef.id);
       alert('Form submitted successfully');
       // Reset form if needed
       setFormData({
