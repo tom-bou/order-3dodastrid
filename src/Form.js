@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import { db } from './firebase'; // Ensure this path matches your actual file structure
 import { collection, addDoc } from 'firebase/firestore';
+import emailjs from 'emailjs-com';
+
 
 const categories = [
   "Your profession",
@@ -112,6 +114,8 @@ function Form() {
     organizationNumber: '',
     country: '',
     city: '',
+    address: '', // Add new field for address
+    postalCode: '', // Add new field for postal code
     category: '',
     samples: [],
     message: ''
@@ -135,6 +139,15 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const dataToSubmit = { ...formData};
+      console.log(process.env.REACT_APP_EMAIL_JS_SERVICE_ID, process.env.REACT_APP_EMAIL_JS_TEMPLATE_ID)
+      await emailjs.send(
+        process.env.REACT_APP_EMAIL_JS_SERVICE_ID,
+        process.env.REACT_APP_EMAIL_JS_TEMPLATE_ID,
+        dataToSubmit,
+        process.env.REACT_APP_USER_ID
+      );
+
       const docRef = await addDoc(collection(db, "Orders"), formData);
       console.log("Document written with ID: ", docRef.id);
       alert('Form submitted successfully');
@@ -148,6 +161,8 @@ function Form() {
         organizationNumber: '',
         country: '',
         city: '',
+        address: '', // Add new field for address
+        postalCode: '', // Add new field for postal code
         category: '',
         samples: [],
         message: ''
@@ -269,6 +284,34 @@ function Form() {
             value={formData.city}
             onChange={handleChange}
             autoComplete="address-level2"
+          />
+        </div>
+        <div className="mb-4 md:col-span-1">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+            Address
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="address"
+            type="text"
+            placeholder="Your address"
+            value={formData.address}
+            onChange={handleChange}
+            autoComplete="street-address"
+          />
+        </div>
+        <div className="mb-4 md:col-span-1">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="postalCode">
+            Postal Code
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="postalCode"
+            type="text"
+            placeholder="Your postal code"
+            value={formData.postalCode}
+            onChange={handleChange}
+            autoComplete="postal-code"
           />
         </div>
         <div className="mb-4 md:col-span-1">
